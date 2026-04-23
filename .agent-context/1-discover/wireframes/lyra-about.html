@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyra — About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lyra-dark-teal: #0B2E3F;
+      --lyra-coral: #E87461;
+      --lyra-coral-light: #F4A28C;
+      --lyra-crystal-teal: #3AAFB9;
+      --lyra-white: #FFFFFF;
+      --lyra-feather: #F7F3EF;
+      --lyra-text: #2D3748;
+      --lyra-text-light: #718096;
+      --lyra-border: #E2E8F0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px; line-height: 1.6; color: var(--lyra-text);
+      background: var(--lyra-white); -webkit-font-smoothing: antialiased;
+    }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--lyra-border);
+      padding: 0 48px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600;
+      color: var(--lyra-coral); text-decoration: none; display: flex; align-items: center; gap: 2px;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--lyra-text); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--lyra-dark-teal); }
+    .nav-links a.active { color: var(--lyra-dark-teal); font-weight: 700; }
+    .nav-cta { background: var(--lyra-dark-teal) !important; color: var(--lyra-white) !important; padding: 8px 20px !important; border-radius: 6px; font-weight: 600 !important; }
+
+    /* Hero */
+    .hero {
+      padding: 130px 48px 64px; text-align: center;
+      background: linear-gradient(180deg, var(--lyra-dark-teal) 0%, #0D3A50 100%);
+      color: var(--lyra-white);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 600;
+      line-height: 1.15; max-width: 700px; margin: 0 auto 20px;
+    }
+    .hero p { font-size: 17px; color: rgba(255,255,255,0.7); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+    /* Sections */
+    .section { padding: 80px 48px; max-width: 1000px; margin: 0 auto; }
+    .section-title {
+      font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600;
+      color: var(--lyra-dark-teal); margin-bottom: 20px;
+    }
+    .section p { font-size: 15px; color: var(--lyra-text-light); line-height: 1.8; margin-bottom: 16px; }
+
+    /* Story section */
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+      margin-top: 24px;
+    }
+    .story-visual {
+      background: var(--lyra-feather); border-radius: 16px; padding: 40px;
+      text-align: center; border: 1px solid var(--lyra-border);
+    }
+    .story-quote {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic;
+      color: var(--lyra-dark-teal); line-height: 1.5; position: relative;
+    }
+    .story-quote::before {
+      content: '"'; font-size: 60px; color: var(--lyra-coral); opacity: 0.4;
+      position: absolute; top: -24px; left: -10px; line-height: 1;
+    }
+    .story-author {
+      margin-top: 16px; font-size: 13px; color: var(--lyra-text-light); font-style: normal;
+    }
+
+    /* Values */
+    .values-section { background: var(--lyra-feather); }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .value-card { text-align: center; }
+    .value-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; font-size: 28px;
+    }
+    .value-card h3 {
+      font-size: 18px; font-weight: 600; color: var(--lyra-dark-teal); margin-bottom: 8px;
+    }
+    .value-card p { font-size: 14px; color: var(--lyra-text-light); line-height: 1.7; }
+
+    /* Team */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      margin-top: 40px;
+    }
+    .team-card {
+      text-align: center; background: var(--lyra-white);
+      border: 1px solid var(--lyra-border); border-radius: 16px; padding: 32px 24px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .team-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); transform: translateY(-3px); }
+    .team-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; font-size: 28px; font-weight: 700; color: var(--lyra-white);
+    }
+    .team-card h3 { font-size: 16px; font-weight: 600; color: var(--lyra-dark-teal); margin-bottom: 2px; }
+    .team-card .team-role { font-size: 13px; color: var(--lyra-crystal-teal); font-weight: 500; margin-bottom: 12px; }
+    .team-card p { font-size: 13px; color: var(--lyra-text-light); line-height: 1.6; }
+
+    /* Timeline */
+    .timeline { margin-top: 40px; position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+      width: 2px; background: var(--lyra-border);
+    }
+    .timeline-item { position: relative; margin-bottom: 36px; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -33px; top: 4px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--lyra-crystal-teal); border: 3px solid var(--lyra-white);
+      box-shadow: 0 0 0 2px var(--lyra-crystal-teal);
+    }
+    .timeline-date {
+      font-size: 12px; font-weight: 600; color: var(--lyra-crystal-teal);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+    }
+    .timeline-title { font-size: 16px; font-weight: 600; color: var(--lyra-dark-teal); margin-bottom: 4px; }
+    .timeline-desc { font-size: 14px; color: var(--lyra-text-light); line-height: 1.6; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: 80px 48px;
+      background: linear-gradient(135deg, var(--lyra-dark-teal) 0%, #0D3A50 100%);
+      color: var(--lyra-white);
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 600; margin-bottom: 16px;
+    }
+    .cta-section p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .btn-coral {
+      display: inline-block; background: var(--lyra-coral); color: var(--lyra-white);
+      padding: 14px 32px; border-radius: 28px; font-weight: 600; font-size: 15px;
+      text-decoration: none; transition: transform 0.2s;
+    }
+    .btn-coral:hover { transform: translateY(-2px); }
+    .btn-outline-white {
+      display: inline-block; background: transparent; color: var(--lyra-white);
+      padding: 14px 32px; border-radius: 28px; text-decoration: none;
+      font-weight: 600; font-size: 15px; border: 2px solid rgba(255,255,255,0.4);
+      margin-left: 12px; transition: background 0.2s;
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+
+    /* Footer */
+    .footer {
+      background: var(--lyra-dark-teal); color: var(--lyra-white); padding: 48px 48px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--lyra-coral);
+      display: flex; align-items: center; gap: 2px;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; }
+    .footer-links a:hover { color: var(--lyra-white); }
+    .footer-copy { text-align: center; color: rgba(255,255,255,0.3); font-size: 12px; margin-top: 32px; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 110px 20px 48px; }
+      .hero h1 { font-size: 32px; }
+      .section { padding: 48px 20px; }
+      .story-grid { grid-template-columns: 1fr; }
+      .values-grid, .team-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="lyra-landing.html" class="nav-logo">lyra<svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px;margin-left:1px;"><path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/></svg></a>
+    <div class="nav-links">
+      <a href="lyra-product.html">Product</a>
+      <a href="lyra-pricing.html">Pricing</a>
+      <a href="lyra-about.html" class="active">About</a>
+      <a href="lyra-app.html" class="nav-cta">Login</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Built by people who've lived programme delivery</h1>
+    <p>Lyra was born from years of first-hand experience managing some of the most complex transformation programmes in the UK. We know what works — and what doesn't.</p>
+  </section>
+
+  <!-- Our Story -->
+  <section class="section">
+    <div class="story-grid">
+      <div>
+        <h2 class="section-title">Our story</h2>
+        <p>Lyra started with a simple observation: the tools available to programme managers weren't designed for them. Spreadsheets, legacy planning tools, and generic project management apps all fall short when you're coordinating dozens of workstreams across multiple portfolios.</p>
+        <p>We spent years navigating these challenges first-hand — running transformation programmes, managing dependencies across teams, and spending hours formatting reports that should have taken minutes.</p>
+        <p>Lyra is the tool we wished existed. Purpose-built for the complexity of real programme delivery, with intelligence baked in at every level.</p>
+      </div>
+      <div class="story-visual">
+        <div class="story-quote">
+          We spent more time fighting the tools than fighting the problems. Lyra changes that.
+        </div>
+        <div class="story-author">— Lyra founding team</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section values-section" style="max-width: 100%; padding-left: 0; padding-right: 0;">
+    <div style="max-width: 1000px; margin: 0 auto; padding: 0 48px;">
+      <h2 class="section-title" style="text-align: center;">What drives us</h2>
+      <p style="text-align: center; max-width: 520px; margin: 0 auto 40px;">Five principles that shape every feature we build and every decision we make.</p>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon" style="background: rgba(58,175,185,0.1);">🎯</div>
+          <h3>Flexibility First</h3>
+          <p>Every organisation delivers differently. Lyra adapts to your structure, not the other way around. Configure hierarchy, columns, thresholds, and workflows to match how you work.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background: rgba(232,116,97,0.1);">📊</div>
+          <h3>Boardroom Ready</h3>
+          <p>Executive reporting has to look world-class. Every export, every chart, every dashboard is designed to be shared with confidence at the highest levels.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background: rgba(11,46,63,0.08);">🔒</div>
+          <h3>Real Governance</h3>
+          <p>Change control isn't a checkbox — it's a workflow. Lyra gives you genuine baselining, threshold-based alerts, approval chains, and a complete audit trail.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background: rgba(58,175,185,0.1);">🔗</div>
+          <h3>Useful Dependencies</h3>
+          <p>Dependencies should illuminate the critical path, not just clutter the view. A dedicated workspace lets you model relationships properly before committing.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background: rgba(232,116,97,0.1);">🤖</div>
+          <h3>AI That Helps</h3>
+          <p>AI generates first-draft plans from your documents, writes risk commentary, and aggregates status — saving hours of admin for PMs and workstream leads.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background: rgba(11,46,63,0.08);">⚡</div>
+          <h3>Speed Matters</h3>
+          <p>A planning tool must be fast. Lyra is built for real-time responsiveness — no waiting for pages to load, no spinning wheels while your Gantt renders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section">
+    <h2 class="section-title" style="text-align: center;">The team</h2>
+    <p style="text-align: center; max-width: 520px; margin: 0 auto 8px;">We're a small, focused team with deep expertise in programme delivery and software engineering.</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar" style="background: var(--lyra-dark-teal);">JC</div>
+        <h3>James Carter</h3>
+        <div class="team-role">Co-Founder &amp; CEO</div>
+        <p>15+ years leading transformation programmes across financial services and government. Passionate about replacing spreadsheet chaos with structured tools.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: var(--lyra-coral);">AW</div>
+        <h3>Anya Wong</h3>
+        <div class="team-role">Co-Founder &amp; CTO</div>
+        <p>Former principal engineer at a major management consultancy. Built enterprise-grade data platforms before turning to product development.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: var(--lyra-crystal-teal);">MK</div>
+        <h3>Marcus Kowalski</h3>
+        <div class="team-role">Head of Product</div>
+        <p>Product leader with a background in enterprise SaaS. Previously led product at a top-tier project portfolio management vendor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey / Timeline -->
+  <section class="section" style="background: var(--lyra-feather); max-width: 100%; padding-left: 0; padding-right: 0;">
+    <div style="max-width: 700px; margin: 0 auto; padding: 0 48px;">
+      <h2 class="section-title">Our journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">Q3 2024</div>
+          <div class="timeline-title">The idea takes shape</div>
+          <div class="timeline-desc">Frustration with existing tools reaches breaking point. We begin documenting what a purpose-built programme planning tool should look like.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Q1 2025</div>
+          <div class="timeline-title">First prototype</div>
+          <div class="timeline-desc">Interactive Gantt, hierarchical planning, and basic change control delivered. Tested with programme managers from three organisations.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Q3 2025</div>
+          <div class="timeline-title">Beta launch</div>
+          <div class="timeline-desc">Dependencies workspace, Report Builder, AI plan generation, and full change control workflow shipped. Early adopter programme begins.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026</div>
+          <div class="timeline-title">General availability</div>
+          <div class="timeline-desc">Lyra launches publicly with full Starter, Professional, and Enterprise tiers. API integrations and Kanban view coming in Q2.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Join us on the journey</h2>
+    <p>We're building the tool that programme delivery deserves. Come see what Lyra can do for your team.</p>
+    <a href="lyra-app.html" class="btn-coral">Try Lyra free</a>
+    <a href="lyra-product.html" class="btn-outline-white">Explore the product</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">lyra<svg viewBox="0 0 24 24" fill="none" style="width:10px;height:10px;margin-left:1px;"><path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/></svg></div>
+      <div class="footer-links">
+        <a href="lyra-landing.html">Home</a>
+        <a href="lyra-product.html">Product</a>
+        <a href="lyra-pricing.html">Pricing</a>
+        <a href="lyra-about.html">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+    <div class="footer-copy">&copy; 2025 Lyra. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>

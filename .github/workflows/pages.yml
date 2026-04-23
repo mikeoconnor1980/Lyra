@@ -1,0 +1,22 @@
+name: Deploy Wireframes to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.agent-context/1-discover/wireframes/**'
+      - '.github/workflows/pages.yml'
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ".agent-context/1-discover/wireframes" --project-name aitradingbot-wireframes

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyra — Master complex projects, from portfolio to task</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lyra-dark-teal: #0B2E3F;
+      --lyra-coral: #E87461;
+      --lyra-coral-light: #F4A28C;
+      --lyra-crystal-teal: #3AAFB9;
+      --lyra-white: #FFFFFF;
+      --lyra-feather: #F7F3EF;
+      --lyra-text: #2D3748;
+      --lyra-text-light: #718096;
+      --lyra-border: #E2E8F0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--lyra-text);
+      background: var(--lyra-white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === Navigation === */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--lyra-border);
+      padding: 0 48px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--lyra-coral);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .nav-logo .star {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-left: 1px;
+      margin-bottom: -2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--lyra-text);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--lyra-dark-teal); }
+    .nav-cta {
+      background: var(--lyra-dark-teal) !important;
+      color: var(--lyra-white) !important;
+      padding: 8px 20px !important;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; }
+
+    /* === Hero === */
+    .hero {
+      padding: 140px 48px 80px;
+      text-align: center;
+      background: var(--lyra-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--lyra-dark-teal);
+      max-width: 720px;
+      margin: 0 auto 24px;
+      letter-spacing: -0.5px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--lyra-text-light);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--lyra-coral);
+      color: var(--lyra-white);
+      padding: 14px 36px;
+      border-radius: 28px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(232, 116, 97, 0.3);
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(232, 116, 97, 0.4);
+    }
+
+    /* === Cat Illustration === */
+    .hero-illustration {
+      margin-top: 48px;
+      position: relative;
+    }
+    .hero-cat {
+      width: 200px;
+      height: 120px;
+      margin: 0 auto;
+    }
+    .hero-wave {
+      position: absolute;
+      bottom: -80px;
+      left: 0;
+      right: 0;
+    }
+
+    /* === Section Styling === */
+    .section {
+      padding: 80px 48px;
+    }
+    .section-alt {
+      background: var(--lyra-feather);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--lyra-dark-teal);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--lyra-text-light);
+      font-size: 16px;
+      margin-bottom: 56px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* === Feature Cards === */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--lyra-white);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+      background: rgba(58, 175, 185, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feature-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--lyra-crystal-teal);
+    }
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--lyra-dark-teal);
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 13px;
+      color: var(--lyra-text-light);
+      line-height: 1.6;
+    }
+
+    /* === Steps Section === */
+    .steps {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 50%;
+      background: var(--lyra-dark-teal);
+      color: var(--lyra-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+    .step-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--lyra-dark-teal);
+      margin-bottom: 6px;
+    }
+    .step-content p {
+      font-size: 14px;
+      color: var(--lyra-text-light);
+      line-height: 1.7;
+    }
+
+    /* === CTA Section === */
+    .cta-section {
+      text-align: center;
+      padding: 80px 48px;
+      background: var(--lyra-white);
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--lyra-dark-teal);
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: var(--lyra-text-light);
+      font-size: 16px;
+      margin-bottom: 32px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    .btn-coral {
+      background: var(--lyra-coral);
+      color: var(--lyra-white);
+      padding: 12px 28px;
+      border-radius: 24px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: transform 0.2s;
+    }
+    .btn-coral:hover { transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--lyra-dark-teal);
+      padding: 12px 28px;
+      border-radius: 24px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      border: 2px solid var(--lyra-dark-teal);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover {
+      background: var(--lyra-dark-teal);
+      color: var(--lyra-white);
+    }
+
+    /* === Footer === */
+    .footer {
+      background: var(--lyra-dark-teal);
+      color: var(--lyra-white);
+      padding: 64px 48px 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-brand .nav-logo {
+      margin-bottom: 20px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+    .footer-email {
+      display: flex;
+      gap: 8px;
+    }
+    .footer-email input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: var(--lyra-white);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+    }
+    .footer-email input::placeholder { color: rgba(255,255,255,0.4); }
+    .footer-email button {
+      padding: 10px 18px;
+      border-radius: 6px;
+      background: var(--lyra-coral);
+      color: var(--lyra-white);
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .footer-col a {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--lyra-white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 48px;
+      padding-top: 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 120px 20px 60px; }
+      .hero h1 { font-size: 34px; }
+      .hero p { font-size: 15px; }
+      .section { padding: 56px 20px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .section-title { font-size: 28px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+    }
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      lyra
+      <svg class="star" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <a href="lyra-product.html">Product</a>
+      <a href="lyra-pricing.html">Pricing</a>
+      <a href="lyra-about.html">About</a>
+      <a href="lyra-app.html" class="nav-cta">Login</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Master complex projects, from portfolio to task.</h1>
+    <p>Lyra empowers project managers, programme leaders, and PMOs to plan, track, and deliver transformation initiatives with intelligent automation and enterprise scalability.</p>
+    <a href="#features" class="hero-cta">Request demo</a>
+
+    <div class="hero-illustration">
+      <svg class="hero-cat" viewBox="0 0 260 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Stylised leaping cat silhouette -->
+        <path d="M60 95 C55 85, 50 70, 55 60 C58 52, 65 48, 70 50 L72 45 C73 40, 76 38, 78 40 L76 50 C80 48, 90 45, 105 42 C120 39, 140 38, 155 42 C170 46, 180 55, 185 65 C188 72, 190 80, 195 85 C200 90, 210 92, 215 88 C220 84, 222 78, 220 72" stroke="#3AAFB9" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M55 60 C48 55, 42 58, 38 65 C35 70, 36 78, 40 82" stroke="#3AAFB9" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Tail -->
+        <path d="M60 95 C50 98, 35 105, 25 100 C18 96, 15 88, 20 82" stroke="#3AAFB9" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Front legs -->
+        <path d="M175 70 C178 80, 182 95, 185 105 C186 108, 188 110, 192 110" stroke="#3AAFB9" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M165 72 C162 85, 158 100, 155 110 C154 112, 152 114, 148 113" stroke="#3AAFB9" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Decorative arc -->
+        <path d="M80 120 Q170 85, 240 120" stroke="#E87461" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Wave separator -->
+  <div style="background: var(--lyra-feather); margin-top: -1px;">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display: block; width: 100%; height: 60px;">
+      <path d="M0 60 L0 20 Q360 -10 720 20 Q1080 50 1440 20 L1440 60Z" fill="#F7F3EF"/>
+      <path d="M0 20 Q360 -10 720 20 Q1080 50 1440 20" fill="none" stroke="white" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <!-- Features Section -->
+  <section class="section section-alt" id="features">
+    <h2 class="section-title">Built for complex programme management</h2>
+    <p class="section-subtitle">From strategic portfolio to individual tasks, Lyra provides the structure and intelligence you need.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/>
+          </svg>
+        </div>
+        <h3>Hierarchical Planning</h3>
+        <p>Manage portfolios, programmes, projects and workstreams in a unified platform</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <h3>Intelligent Tracking</h3>
+        <p>Track progress alongside with automated status updates and real-time reporting</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Change Control</h3>
+        <p>Full baseline management and approval workflows for controlled project governance</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          </svg>
+        </div>
+        <h3>Enterprise Scale</h3>
+        <p>Handle board-level reporting across complex multi-programme environments</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps Section -->
+  <section class="section">
+    <h2 class="section-title">Complete visibility across your programme</h2>
+    <p class="section-subtitle">Lyra's hierarchical structure changes how you think about your work.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Organise by portfolio, programme, project &amp; workstream</h3>
+          <p>Create a unified hierarchical structure that matches your organisation's delivery model. Track dependencies and relationships across teams, programmes, and portfolios.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Baseline &amp; control changes</h3>
+          <p>Set baselines at any organisational level. Configure change control thresholds and approval workflows to ensure governance. Every change is tracked and auditable.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Track progress intelligently</h3>
+          <p>Real-time status tracking, automated change detection, and AI-generated commentary. Build executive reports that are boardroom-ready with just a few clicks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2>Ready to transform your programme management?</h2>
+    <p>Join transformation leaders who trust Lyra to deliver complex initiatives on-time and on-budget.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-coral">Get started</a>
+      <a href="#" class="btn-outline">Schedule a demo</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          lyra
+          <svg class="star" viewBox="0 0 24 24" fill="none" style="width:12px;height:12px;">
+            <path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/>
+          </svg>
+        </a>
+        <p>Subscribe to our newsletter to keep up-to-date.</p>
+        <div class="footer-email">
+          <input type="email" placeholder="Enter your email">
+          <button>Subscribe</button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Hierarchical Planning</a>
+        <a href="#">Intelligent Tracking</a>
+        <a href="#">Change Control</a>
+        <a href="#">Enterprise Scale</a>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <a href="#">Resources</a>
+        <a href="#">Help &amp; guidelines</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 Lyra. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
