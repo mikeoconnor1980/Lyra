@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyra — Pricing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lyra-dark-teal: #0B2E3F;
+      --lyra-coral: #E87461;
+      --lyra-coral-light: #F4A28C;
+      --lyra-crystal-teal: #3AAFB9;
+      --lyra-white: #FFFFFF;
+      --lyra-feather: #F7F3EF;
+      --lyra-text: #2D3748;
+      --lyra-text-light: #718096;
+      --lyra-border: #E2E8F0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px; line-height: 1.6; color: var(--lyra-text);
+      background: var(--lyra-white); -webkit-font-smoothing: antialiased;
+    }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--lyra-border);
+      padding: 0 48px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600;
+      color: var(--lyra-coral); text-decoration: none; display: flex; align-items: center; gap: 2px;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--lyra-text); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--lyra-dark-teal); }
+    .nav-links a.active { color: var(--lyra-dark-teal); font-weight: 700; }
+    .nav-cta { background: var(--lyra-dark-teal) !important; color: var(--lyra-white) !important; padding: 8px 20px !important; border-radius: 6px; font-weight: 600 !important; }
+
+    .hero {
+      padding: 130px 48px 48px; text-align: center;
+      background: linear-gradient(180deg, var(--lyra-feather) 0%, var(--lyra-white) 100%);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 600;
+      line-height: 1.15; color: var(--lyra-dark-teal); max-width: 600px; margin: 0 auto 16px;
+    }
+    .hero p { font-size: 17px; color: var(--lyra-text-light); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* Toggle */
+    .toggle-row {
+      display: flex; justify-content: center; align-items: center; gap: 12px; margin: 40px 0;
+    }
+    .toggle-label { font-size: 14px; font-weight: 500; color: var(--lyra-text-light); }
+    .toggle-label.active-label { color: var(--lyra-dark-teal); font-weight: 700; }
+    .toggle-track {
+      width: 48px; height: 26px; background: var(--lyra-crystal-teal);
+      border-radius: 13px; position: relative; cursor: pointer; transition: background 0.2s;
+    }
+    .toggle-thumb {
+      width: 20px; height: 20px; background: white; border-radius: 50%;
+      position: absolute; top: 3px; left: 3px; transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .toggle-track.annual .toggle-thumb { left: 25px; }
+    .save-badge {
+      background: #E6F4EA; color: #38A169; font-size: 12px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* Pricing Cards */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      max-width: 1050px; margin: 0 auto; padding: 0 48px 80px;
+    }
+    .price-card {
+      background: var(--lyra-white); border: 1px solid var(--lyra-border);
+      border-radius: 16px; padding: 36px 28px; position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .price-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.08); transform: translateY(-4px); }
+    .price-card.featured {
+      border: 2px solid var(--lyra-dark-teal);
+      box-shadow: 0 8px 24px rgba(11,46,63,0.12);
+    }
+    .price-card.featured .popular-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--lyra-dark-teal); color: var(--lyra-white);
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      padding: 4px 16px; border-radius: 20px;
+    }
+    .price-tier { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--lyra-crystal-teal); margin-bottom: 8px; }
+    .price-amount {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700;
+      color: var(--lyra-dark-teal); margin-bottom: 4px;
+    }
+    .price-amount span { font-size: 16px; font-weight: 400; color: var(--lyra-text-light); }
+    .price-desc { font-size: 14px; color: var(--lyra-text-light); margin-bottom: 28px; line-height: 1.6; }
+    .price-btn {
+      display: block; width: 100%; padding: 12px; border-radius: 8px; border: none;
+      font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;
+      text-align: center; text-decoration: none; transition: opacity 0.2s;
+    }
+    .price-btn-primary { background: var(--lyra-dark-teal); color: var(--lyra-white); }
+    .price-btn-coral { background: var(--lyra-coral); color: var(--lyra-white); }
+    .price-btn-outline { background: transparent; border: 2px solid var(--lyra-dark-teal); color: var(--lyra-dark-teal); }
+    .price-btn:hover { opacity: 0.9; }
+    .price-divider { border: none; border-top: 1px solid var(--lyra-border); margin: 24px 0; }
+    .price-features { list-style: none; padding: 0; margin: 0; }
+    .price-features li {
+      font-size: 13.5px; color: var(--lyra-text); padding: 6px 0;
+      display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+    }
+    .price-features li::before {
+      content: '✓'; color: var(--lyra-crystal-teal); font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .price-features li.disabled { color: var(--lyra-text-light); opacity: 0.5; }
+    .price-features li.disabled::before { content: '—'; color: var(--lyra-text-light); }
+
+    /* FAQ */
+    .faq-section { max-width: 720px; margin: 0 auto; padding: 64px 48px 80px; }
+    .faq-title {
+      font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600;
+      color: var(--lyra-dark-teal); text-align: center; margin-bottom: 40px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--lyra-border); padding: 20px 0;
+    }
+    .faq-q {
+      font-size: 15px; font-weight: 600; color: var(--lyra-dark-teal);
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    }
+    .faq-q:hover { color: var(--lyra-crystal-teal); }
+    .faq-a {
+      font-size: 14px; color: var(--lyra-text-light); line-height: 1.7;
+      margin-top: 12px; display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-toggle { font-size: 18px; transition: transform 0.2s; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: 64px 48px; background: var(--lyra-feather);
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600;
+      color: var(--lyra-dark-teal); margin-bottom: 12px;
+    }
+    .cta-section p { color: var(--lyra-text-light); font-size: 15px; margin-bottom: 28px; }
+    .btn-coral {
+      display: inline-block; background: var(--lyra-coral); color: var(--lyra-white);
+      padding: 14px 32px; border-radius: 28px; font-weight: 600; font-size: 15px;
+      text-decoration: none; transition: transform 0.2s;
+    }
+    .btn-coral:hover { transform: translateY(-2px); }
+
+    /* Footer */
+    .footer {
+      background: var(--lyra-dark-teal); color: var(--lyra-white); padding: 48px 48px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--lyra-coral);
+      display: flex; align-items: center; gap: 2px;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; }
+    .footer-links a:hover { color: var(--lyra-white); }
+    .footer-copy { text-align: center; color: rgba(255,255,255,0.3); font-size: 12px; margin-top: 32px; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 110px 20px 48px; }
+      .hero h1 { font-size: 32px; }
+      .pricing-grid { grid-template-columns: 1fr; padding: 0 20px 48px; }
+      .faq-section { padding: 48px 20px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="lyra-landing.html" class="nav-logo">lyra<svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px;margin-left:1px;"><path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/></svg></a>
+    <div class="nav-links">
+      <a href="lyra-product.html">Product</a>
+      <a href="lyra-pricing.html" class="active">Pricing</a>
+      <a href="lyra-about.html">About</a>
+      <a href="lyra-app.html" class="nav-cta">Login</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Simple, transparent pricing</h1>
+    <p>Start free. Scale as your portfolio grows. No hidden fees, no per-project charges.</p>
+  </section>
+
+  <!-- Toggle -->
+  <div class="toggle-row">
+    <span class="toggle-label active-label" id="lbl-monthly">Monthly</span>
+    <div class="toggle-track" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span class="toggle-label" id="lbl-annual">Annual</span>
+    <span class="save-badge">Save 20%</span>
+  </div>
+
+  <!-- Pricing Cards -->
+  <div class="pricing-grid">
+    <!-- Starter -->
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount">Free</div>
+      <div class="price-desc">For individual project managers exploring Lyra's planning capabilities.</div>
+      <a href="lyra-app.html" class="price-btn price-btn-outline">Get started free</a>
+      <hr class="price-divider">
+      <ul class="price-features">
+        <li>1 portfolio, up to 3 projects</li>
+        <li>Up to 200 tasks</li>
+        <li>Interactive Gantt chart</li>
+        <li>Hierarchy and Flat View</li>
+        <li>Basic reporting (1 canned report)</li>
+        <li class="disabled">Change control &amp; baselining</li>
+        <li class="disabled">Dependency management</li>
+        <li class="disabled">AI plan generation</li>
+        <li class="disabled">API integrations</li>
+      </ul>
+    </div>
+
+    <!-- Professional -->
+    <div class="price-card featured">
+      <div class="popular-badge">Most Popular</div>
+      <div class="price-tier">Professional</div>
+      <div class="price-amount" id="price-pro">£29<span>/user/month</span></div>
+      <div class="price-desc">For programme managers and PMOs delivering across multiple projects.</div>
+      <a href="lyra-app.html" class="price-btn price-btn-coral">Start 14-day free trial</a>
+      <hr class="price-divider">
+      <ul class="price-features">
+        <li>Unlimited portfolios &amp; projects</li>
+        <li>Unlimited tasks</li>
+        <li>Full Gantt with dependencies</li>
+        <li>Change control &amp; baselining</li>
+        <li>Dependency management workspace</li>
+        <li>Report Builder + export (PDF, Excel)</li>
+        <li>Configurable notifications</li>
+        <li>AI plan generation (5 per month)</li>
+        <li class="disabled">API integrations &amp; SSO</li>
+      </ul>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="price-card">
+      <div class="price-tier">Enterprise</div>
+      <div class="price-amount">Custom</div>
+      <div class="price-desc">For transformation offices managing enterprise-wide portfolios with full governance.</div>
+      <a href="#" class="price-btn price-btn-primary">Contact sales</a>
+      <hr class="price-divider">
+      <ul class="price-features">
+        <li>Everything in Professional</li>
+        <li>Unlimited AI plan generation</li>
+        <li>API integrations (Teams, Planview, Clarity)</li>
+        <li>SSO / SAML authentication</li>
+        <li>PowerPoint &amp; boardroom export styles</li>
+        <li>Risk &amp; Issue register with AI commentary</li>
+        <li>Time Travel (historical plan playback)</li>
+        <li>Kanban &amp; Calendar views</li>
+        <li>Dedicated success manager</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2 class="faq-title">Frequently asked questions</h2>
+
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I switch plans at any time?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Yes — you can upgrade or downgrade at any time. When upgrading, you get immediate access to new features. When downgrading, your current billing period is honoured and the change takes effect at renewal.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is there a free trial for Professional?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Absolutely. The Professional plan comes with a 14-day free trial with full access to all features. No credit card required to start.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What counts as a "user"?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">A user is anyone who logs in to Lyra to view or edit plans. View-only stakeholders accessing shared reports or exported PDFs do not count as users.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I import data from other tools?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">Yes. Lyra supports paste-from-Excel import for tasks and attributes. On the Enterprise plan, API integrations enable direct data exchange with Planview, Clarity, and Microsoft Teams.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Where is my data stored?<span class="faq-toggle">+</span></div>
+      <div class="faq-a">All data is stored securely in Azure data centres. We support EU and UK data residency requirements. Enterprise clients can specify their preferred region.</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to get started?</h2>
+    <p>Join hundreds of programme managers who trust Lyra for their most critical initiatives.</p>
+    <a href="lyra-app.html" class="btn-coral">Start your free trial</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">lyra<svg viewBox="0 0 24 24" fill="none" style="width:10px;height:10px;margin-left:1px;"><path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/></svg></div>
+      <div class="footer-links">
+        <a href="lyra-landing.html">Home</a>
+        <a href="lyra-product.html">Product</a>
+        <a href="lyra-pricing.html">Pricing</a>
+        <a href="lyra-about.html">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+    <div class="footer-copy">&copy; 2025 Lyra. All rights reserved.</div>
+  </footer>
+
+  <script>
+    let isAnnual = false;
+    function toggleBilling() {
+      isAnnual = !isAnnual;
+      const track = document.getElementById('billing-toggle');
+      const lblM = document.getElementById('lbl-monthly');
+      const lblA = document.getElementById('lbl-annual');
+      const proPriceEl = document.getElementById('price-pro');
+      
+      track.classList.toggle('annual', isAnnual);
+      lblM.classList.toggle('active-label', !isAnnual);
+      lblA.classList.toggle('active-label', isAnnual);
+      
+      if (isAnnual) {
+        proPriceEl.innerHTML = '£23<span>/user/month</span>';
+      } else {
+        proPriceEl.innerHTML = '£29<span>/user/month</span>';
+      }
+    }
+
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      item.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

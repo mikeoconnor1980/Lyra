@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyra — Product</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lyra-dark-teal: #0B2E3F;
+      --lyra-coral: #E87461;
+      --lyra-coral-light: #F4A28C;
+      --lyra-crystal-teal: #3AAFB9;
+      --lyra-white: #FFFFFF;
+      --lyra-feather: #F7F3EF;
+      --lyra-text: #2D3748;
+      --lyra-text-light: #718096;
+      --lyra-border: #E2E8F0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--lyra-text);
+      background: var(--lyra-white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === Nav === */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--lyra-border);
+      padding: 0 48px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600;
+      color: var(--lyra-coral); text-decoration: none;
+      display: flex; align-items: center; gap: 2px;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      text-decoration: none; color: var(--lyra-text); font-size: 14px; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--lyra-dark-teal); }
+    .nav-links a.active { color: var(--lyra-dark-teal); font-weight: 700; }
+    .nav-cta {
+      background: var(--lyra-dark-teal) !important; color: var(--lyra-white) !important;
+      padding: 8px 20px !important; border-radius: 6px; font-weight: 600 !important;
+    }
+
+    /* === Hero === */
+    .hero {
+      padding: 130px 48px 64px; text-align: center;
+      background: linear-gradient(180deg, var(--lyra-feather) 0%, var(--lyra-white) 100%);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 600;
+      line-height: 1.15; color: var(--lyra-dark-teal);
+      max-width: 700px; margin: 0 auto 20px;
+    }
+    .hero p {
+      font-size: 17px; color: var(--lyra-text-light);
+      max-width: 580px; margin: 0 auto; line-height: 1.7;
+    }
+
+    /* === Sections === */
+    .section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+    .section-alt { background: var(--lyra-feather); }
+    .section-full { max-width: 100%; }
+    .section-title {
+      font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 600;
+      color: var(--lyra-dark-teal); margin-bottom: 16px;
+    }
+    .section-subtitle {
+      color: var(--lyra-text-light); font-size: 16px; line-height: 1.7;
+      max-width: 600px; margin-bottom: 40px;
+    }
+    .section-center { text-align: center; }
+    .section-center .section-subtitle { margin-left: auto; margin-right: auto; }
+
+    /* === Feature Row === */
+    .feature-row {
+      display: flex; gap: 48px; align-items: center; margin-bottom: 80px;
+    }
+    .feature-row.reverse { flex-direction: row-reverse; }
+    .feature-text { flex: 1; }
+    .feature-text h2 {
+      font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600;
+      color: var(--lyra-dark-teal); margin-bottom: 16px;
+    }
+    .feature-text p {
+      color: var(--lyra-text-light); font-size: 15px; line-height: 1.8; margin-bottom: 16px;
+    }
+    .feature-text ul {
+      list-style: none; padding: 0; margin: 0;
+    }
+    .feature-text ul li {
+      position: relative; padding-left: 24px; margin-bottom: 10px;
+      font-size: 14px; color: var(--lyra-text); line-height: 1.6;
+    }
+    .feature-text ul li::before {
+      content: ''; position: absolute; left: 0; top: 8px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--lyra-crystal-teal); opacity: 0.7;
+    }
+    .feature-visual {
+      flex: 1; background: var(--lyra-feather); border-radius: 16px;
+      min-height: 320px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--lyra-border); overflow: hidden; position: relative;
+    }
+    .feature-visual-inner {
+      width: 90%; background: var(--lyra-white); border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden;
+    }
+    .fv-bar {
+      height: 36px; background: var(--lyra-dark-teal); display: flex; align-items: center;
+      padding: 0 12px; gap: 6px;
+    }
+    .fv-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .fv-content { padding: 16px; }
+
+    /* === Gantt Mini Preview === */
+    .gantt-mini { display: flex; gap: 0; }
+    .gantt-mini-left { width: 120px; font-size: 11px; color: var(--lyra-text-light); border-right: 1px solid var(--lyra-border); }
+    .gantt-mini-left div { padding: 5px 8px; border-bottom: 1px solid #f0f0f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .gantt-mini-right { flex: 1; position: relative; min-height: 140px; }
+    .gmr-bar {
+      position: absolute; height: 14px; border-radius: 3px; font-size: 0;
+    }
+    .gmr-header { display: flex; font-size: 9px; color: var(--lyra-text-light); border-bottom: 1px solid #f0f0f0; }
+    .gmr-header span { flex: 1; text-align: center; padding: 4px 0; }
+
+    /* === Capability Grid === */
+    .cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .cap-card {
+      background: var(--lyra-white); border-radius: 12px; padding: 28px 24px;
+      border: 1px solid var(--lyra-border); transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .cap-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .cap-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; font-size: 22px;
+    }
+    .cap-card h3 { font-size: 16px; font-weight: 600; color: var(--lyra-dark-teal); margin-bottom: 8px; }
+    .cap-card p { font-size: 13px; color: var(--lyra-text-light); line-height: 1.7; }
+
+    /* === CTA === */
+    .cta-section {
+      text-align: center; padding: 80px 48px; background: var(--lyra-dark-teal); color: var(--lyra-white);
+    }
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 600; margin-bottom: 16px;
+    }
+    .cta-section p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .btn-coral {
+      display: inline-block; background: var(--lyra-coral); color: var(--lyra-white);
+      padding: 14px 32px; border-radius: 28px; text-decoration: none;
+      font-weight: 600; font-size: 15px; transition: transform 0.2s;
+    }
+    .btn-coral:hover { transform: translateY(-2px); }
+    .btn-outline-white {
+      display: inline-block; background: transparent; color: var(--lyra-white);
+      padding: 14px 32px; border-radius: 28px; text-decoration: none;
+      font-weight: 600; font-size: 15px; border: 2px solid rgba(255,255,255,0.4);
+      margin-left: 12px; transition: background 0.2s;
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+
+    /* === Footer === */
+    .footer {
+      background: var(--lyra-dark-teal); color: var(--lyra-white); padding: 48px 48px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--lyra-coral);
+      display: flex; align-items: center; gap: 2px;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; }
+    .footer-links a:hover { color: var(--lyra-white); }
+    .footer-copy { text-align: center; color: rgba(255,255,255,0.3); font-size: 12px; margin-top: 32px; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 110px 20px 48px; }
+      .hero h1 { font-size: 32px; }
+      .section { padding: 48px 20px; }
+      .feature-row, .feature-row.reverse { flex-direction: column; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="lyra-landing.html" class="nav-logo">lyra<svg viewBox="0 0 24 24" fill="none" style="width:12px;height:12px;margin-left:1px;"><path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/></svg></a>
+    <div class="nav-links">
+      <a href="lyra-product.html" class="active">Product</a>
+      <a href="lyra-pricing.html">Pricing</a>
+      <a href="lyra-about.html">About</a>
+      <a href="lyra-app.html" class="nav-cta">Login</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Everything you need to deliver complex programmes</h1>
+    <p>Lyra brings hierarchical planning, intelligent tracking, change control, and executive reporting together in one powerful platform — purpose-built for transformation delivery.</p>
+  </section>
+
+  <!-- Feature 1: Hierarchical Planning -->
+  <section class="section">
+    <div class="feature-row">
+      <div class="feature-text">
+        <h2>Hierarchical Planning &amp; Gantt</h2>
+        <p>Structure your work the way your organisation actually delivers — from enterprise through portfolio, programme, project, and workstream down to individual tasks. View everything in an interactive Gantt chart with real-time status colouring.</p>
+        <ul>
+          <li>Unlimited hierarchy depth — portfolios, programmes, projects, workstreams, tasks</li>
+          <li>Interactive Gantt with drag-to-reschedule and zoom from weekly to 5-year view</li>
+          <li>Toggle between Hierarchy and Flat View modes instantly</li>
+          <li>Configurable columns — show exactly the data you need</li>
+          <li>Excel-like editing — tab, click, paste from other sources</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="feature-visual-inner">
+          <div class="fv-bar">
+            <div class="fv-dot" style="background:#E53E3E;"></div>
+            <div class="fv-dot" style="background:#DD8B00;"></div>
+            <div class="fv-dot" style="background:#38A169;"></div>
+          </div>
+          <div class="fv-content">
+            <div class="gantt-mini">
+              <div class="gantt-mini-left">
+                <div style="font-weight:700;color:var(--lyra-dark-teal);">▾ Digital Transform...</div>
+                <div style="padding-left:12px;">▾ Cloud Migration</div>
+                <div style="padding-left:20px;">Mobile App Rede...</div>
+                <div style="padding-left:28px;">Frontend Dev</div>
+                <div style="padding-left:28px;">Backend Dev</div>
+                <div style="padding-left:20px;">Customer Portal</div>
+              </div>
+              <div class="gantt-mini-right">
+                <div class="gmr-header"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+                <div class="gmr-bar" style="background:#3182CE; left:2%; width:94%; top:32px;"></div>
+                <div class="gmr-bar" style="background:#38A169; left:2%; width:88%; top:52px;"></div>
+                <div class="gmr-bar" style="background:#38A169; left:2%; width:55%; top:72px;"></div>
+                <div class="gmr-bar" style="background:#3182CE; left:2%; width:30%; top:92px;"></div>
+                <div class="gmr-bar" style="background:#DD8B00; left:14%; width:38%; top:112px;"></div>
+                <div class="gmr-bar" style="background:#38A169; left:18%; width:55%; top:132px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Change Control -->
+    <div class="feature-row reverse">
+      <div class="feature-text">
+        <h2>Change Control &amp; Baselining</h2>
+        <p>Set baselines at any level — portfolio, programme, or project. Lyra automatically detects when changes exceed your thresholds, flags breaches, and routes them through your approval workflow. Every change is tracked in a comprehensive audit log.</p>
+        <ul>
+          <li>Set customisable thresholds per project or attribute (dates, status, etc.)</li>
+          <li>Automatic status change to Red and CC flag when threshold breached</li>
+          <li>Full approval workflow — Awaiting, Approved, Rejected, User Override</li>
+          <li>AI-generated risk commentary for flagged items</li>
+          <li>Complete audit log exportable to Excel</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="feature-visual-inner">
+          <div class="fv-bar">
+            <div class="fv-dot" style="background:#E53E3E;"></div>
+            <div class="fv-dot" style="background:#DD8B00;"></div>
+            <div class="fv-dot" style="background:#38A169;"></div>
+          </div>
+          <div class="fv-content" style="font-size: 12px;">
+            <div style="display:flex; gap:12px; margin-bottom:14px;">
+              <div style="flex:1; background:#FEE2E2; border-radius:8px; padding:12px; text-align:center;">
+                <div style="font-size:22px; font-weight:700; color:#E53E3E;">2</div>
+                <div style="font-size:10px; color:#E53E3E;">Awaiting Approval</div>
+              </div>
+              <div style="flex:1; background:#E6F4EA; border-radius:8px; padding:12px; text-align:center;">
+                <div style="font-size:22px; font-weight:700; color:#38A169;">38</div>
+                <div style="font-size:10px; color:#38A169;">Approved</div>
+              </div>
+              <div style="flex:1; background:#DBEAFE; border-radius:8px; padding:12px; text-align:center;">
+                <div style="font-size:22px; font-weight:700; color:#3182CE;">47</div>
+                <div style="font-size:10px; color:#3182CE;">Total Changes</div>
+              </div>
+            </div>
+            <div style="border:1px solid #E2E8F0; border-radius:6px; overflow:hidden;">
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; background:#F4F6F9; padding:6px 8px; font-size:10px; font-weight:600; color:#718096; text-transform: uppercase; letter-spacing: 0.5px;">
+                <span>Status</span><span>Task</span><span>Change</span>
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; padding:8px; border-bottom:1px solid #EDF2F7; align-items: center;">
+                <span style="background:#FFF3CD; color:#DD8B00; font-size:9px; font-weight:600; padding:2px 6px; border-radius:10px; width:fit-content;">Awaiting</span>
+                <span style="font-weight:500; font-size:11px;">Backend Dev</span>
+                <span style="color:#E53E3E; font-size:11px;">🚩 Breach</span>
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; padding:8px; align-items: center;">
+                <span style="background:#E6F4EA; color:#38A169; font-size:9px; font-weight:600; padding:2px 6px; border-radius:10px; width:fit-content;">Approved</span>
+                <span style="font-weight:500; font-size:11px;">Customer Portal</span>
+                <span style="color:#38A169; font-size:11px;">✓ Approved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3: Dependencies -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h2>Dependency Management</h2>
+        <p>A dedicated workspace to discover, model, and manage task dependencies before publishing to the plan. All decisions are easily reversible — giving you full confidence to experiment with task relationships.</p>
+        <ul>
+          <li>Finish-to-Start, Start-to-Start, Finish-to-Finish, and Start-to-Finish types</li>
+          <li>Lead and lag time in days, weeks, or months</li>
+          <li>Dedicated Gantt and Table views for dependencies</li>
+          <li>Save changes in a staging area, then publish to the live plan</li>
+          <li>All dependency changes tracked in the audit log</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="feature-visual-inner">
+          <div class="fv-bar">
+            <div class="fv-dot" style="background:#E53E3E;"></div>
+            <div class="fv-dot" style="background:#DD8B00;"></div>
+            <div class="fv-dot" style="background:#38A169;"></div>
+          </div>
+          <div class="fv-content" style="font-size: 12px;">
+            <div style="font-weight:600; color:var(--lyra-dark-teal); margin-bottom:10px; font-size:14px;">Dependencies Log <span style="background:var(--lyra-crystal-teal); color:white; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700; margin-left:6px;">4</span></div>
+            <div style="border:1px solid #E2E8F0; border-radius:6px; overflow:hidden;">
+              <div style="display:grid; grid-template-columns: 50px 1fr 1fr 60px; background:#F4F6F9; padding:6px 8px; font-size:10px; font-weight:600; color:#718096; text-transform: uppercase;">
+                <span>Type</span><span>Predecessor</span><span>Successor</span><span>Lag</span>
+              </div>
+              <div style="display:grid; grid-template-columns: 50px 1fr 1fr 60px; padding:8px; border-bottom:1px solid #EDF2F7; align-items: center;">
+                <span style="background:#DBEAFE; color:#2563EB; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; width:fit-content;">FS</span>
+                <span style="font-size:11px;">Backend Dev - Mobile</span>
+                <span style="font-size:11px;">Infrastructure - Mobile</span>
+                <span style="font-size:11px; color:#38A169;">0 days</span>
+              </div>
+              <div style="display:grid; grid-template-columns: 50px 1fr 1fr 60px; padding:8px; border-bottom:1px solid #EDF2F7; align-items: center;">
+                <span style="background:#E6F4EA; color:#16A34A; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; width:fit-content;">SS</span>
+                <span style="font-size:11px;">Backend Dev - Mobile</span>
+                <span style="font-size:11px;">Customer Portal</span>
+                <span style="font-size:11px; color:#38A169;">0 days</span>
+              </div>
+              <div style="display:grid; grid-template-columns: 50px 1fr 1fr 60px; padding:8px; align-items: center;">
+                <span style="background:#E6F4EA; color:#16A34A; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; width:fit-content;">SS</span>
+                <span style="font-size:11px;">Testing - Payment</span>
+                <span style="font-size:11px;">Testing - Data Whse</span>
+                <span style="font-size:11px; color:#38A169;">0 days</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 4: Reports -->
+    <div class="feature-row reverse">
+      <div class="feature-text">
+        <h2>Executive Reporting</h2>
+        <p>Build boardroom-ready reports in seconds. Choose attributes, apply filters, and generate polished Gantt-based reports that can be exported to PDF, PowerPoint, or Excel — designed to impress at every level of your organisation.</p>
+        <ul>
+          <li>Interactive Report Builder — select attributes and filters visually</li>
+          <li>Live preview with task list and Gantt chart</li>
+          <li>Export to PDF, PowerPoint, and Excel — formatted for the boardroom</li>
+          <li>Canned report templates for weekly and monthly status</li>
+          <li>Save, share, and schedule recurring reports</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="feature-visual-inner">
+          <div class="fv-bar">
+            <div class="fv-dot" style="background:#E53E3E;"></div>
+            <div class="fv-dot" style="background:#DD8B00;"></div>
+            <div class="fv-dot" style="background:#38A169;"></div>
+          </div>
+          <div class="fv-content" style="font-size: 12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-weight:600; color:var(--lyra-dark-teal); font-size:14px;">Executive Report Preview</span>
+              <span style="background:var(--lyra-crystal-teal); color:white; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">11 tasks</span>
+            </div>
+            <div style="display:flex; gap:0; border:1px solid #E2E8F0; border-radius:6px; overflow:hidden;">
+              <div style="width:100px; border-right:1px solid #E2E8F0; font-size:10px;">
+                <div style="padding:4px 6px; background:#F4F6F9; font-weight:600; color:#718096;">Project</div>
+                <div style="padding:4px 6px; border-bottom:1px solid #f0f0f0;"></div>
+                <div style="padding:4px 6px; border-bottom:1px solid #f0f0f0; color:var(--lyra-crystal-teal);">Customer Portal</div>
+                <div style="padding:4px 6px; border-bottom:1px solid #f0f0f0;"></div>
+                <div style="padding:4px 6px; border-bottom:1px solid #f0f0f0; color:var(--lyra-crystal-teal);">Payment Gateway</div>
+                <div style="padding:4px 6px;">Security</div>
+              </div>
+              <div style="flex:1; position:relative; min-height:140px;">
+                <div style="padding:4px 6px; background:#F4F6F9; font-weight:600; color:#718096; font-size:10px; text-align:center;">2025</div>
+                <div style="position:absolute; left:8%; width:34%; top:30px; height:12px; background:#3182CE; border-radius:3px;"></div>
+                <div style="position:absolute; left:18%; width:24%; top:50px; height:12px; background:#38A169; border-radius:3px;"></div>
+                <div style="position:absolute; left:24%; width:30%; top:70px; height:12px; background:#38A169; border-radius:3px;"></div>
+                <div style="position:absolute; left:30%; width:20%; top:90px; height:12px; background:#E53E3E; border-radius:3px;"></div>
+                <div style="position:absolute; left:40%; width:30%; top:110px; height:12px; background:#38A169; border-radius:3px;"></div>
+                <div style="position:absolute; left:44%; width:28%; top:130px; height:12px; background:#38A169; border-radius:3px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Capabilities Grid -->
+  <section class="section section-alt section-full" style="padding-left:0;padding-right:0;">
+    <div style="max-width:1100px; margin:0 auto; padding: 0 48px;">
+      <div class="section-center">
+        <h2 class="section-title">Every capability you need</h2>
+        <p class="section-subtitle">From AI-powered plan generation to time-travel views — Lyra is designed for teams who take programme delivery seriously.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap-card">
+          <div class="cap-icon" style="background:rgba(58,175,185,0.1);">🧠</div>
+          <h3>AI Plan Generation</h3>
+          <p>Upload SOWs, meeting minutes, and contracts. Lyra analyses documents and drafts a complete plan with hierarchy, dates, and status — ready for your review.</p>
+        </div>
+        <div class="cap-card">
+          <div class="cap-icon" style="background:rgba(232,116,97,0.1);">⏱</div>
+          <h3>Time Travel</h3>
+          <p>Scrub through your plan's history with a timeline slider. See how scope, dates, and status evolved since day one — ideal for retrospectives and lessons learned.</p>
+        </div>
+        <div class="cap-card">
+          <div class="cap-icon" style="background:rgba(11,46,63,0.08);">📊</div>
+          <h3>Kanban View</h3>
+          <p>Tag plan tasks with kanban boards. Status syncs bidirectionally between the plan and the board — giving your team flexibility without losing control.</p>
+        </div>
+        <div class="cap-card">
+          <div class="cap-icon" style="background:rgba(58,175,185,0.1);">📅</div>
+          <h3>Calendar View</h3>
+          <p>View tasks on a calendar for date-centric planning. Perfect for milestone reviews, resource planning, and aligning deliverables with key dates.</p>
+        </div>
+        <div class="cap-card">
+          <div class="cap-icon" style="background:rgba(232,116,97,0.1);">⚠️</div>
+          <h3>Risk &amp; Issue Register</h3>
+          <p>Automatically generate risk/issue records from Red status items. AI aggregates commentary from task level up to workstream, project, and portfolio — saving hours.</p>
+        </div>
+        <div class="cap-card">
+          <div class="cap-icon" style="background:rgba(11,46,63,0.08);">🔔</div>
+          <h3>Notifications</h3>
+          <p>Configurable email alerts for past due tasks, status changes, threshold breaches, and approval requests. Keep the right people informed without the noise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>See Lyra in action</h2>
+    <p>Book a personalised demo and discover how Lyra can transform the way you manage complex programmes.</p>
+    <a href="#" class="btn-coral">Request a demo</a>
+    <a href="lyra-pricing.html" class="btn-outline-white">View pricing</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">lyra<svg viewBox="0 0 24 24" fill="none" style="width:10px;height:10px;margin-left:1px;"><path d="M12 2L13.5 9.5L20 12L13.5 14.5L12 22L10.5 14.5L4 12L10.5 9.5L12 2Z" fill="#E87461"/></svg></div>
+      <div class="footer-links">
+        <a href="lyra-landing.html">Home</a>
+        <a href="lyra-product.html">Product</a>
+        <a href="lyra-pricing.html">Pricing</a>
+        <a href="lyra-about.html">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+    <div class="footer-copy">&copy; 2025 Lyra. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
